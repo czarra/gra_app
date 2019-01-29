@@ -2,5 +2,13 @@
 <resources>
     <color name="colorPrimary">#262626</color>
     <color name="colorPrimaryDark">#262626</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#E23A32</color>
+
+    <color name="app_background">#1E2830</color>
+    <color name="background_color">#1e2830</color>
+    <color name="warmGrey">#8F8F8F</color>
+    <color name="white">#FFFFFF</color>
+    <color name="hint_color">#909090</color>
+    <color name="red">#E23A32</color>
+
 </resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/app_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginRegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:paddingLeft="35px"
+        android:paddingRight="35px"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="@string/welcome"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10pt" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/EditTextDefault"
+            android:hint="@string/email"
+            android:textSize="7pt"
+            android:layout_marginTop="55px"
+            android:layout_marginBottom="15px"
+
+            android:textAlignment="viewStart"
+            android:textColor="@color/warmGrey" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/EditTextDefault"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@color/warmGrey"
+            android:textSize="7pt" />
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login_button"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="@string/logintext"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:letterSpacing="0.06"
+            android:textSize="6pt"
+            />
+    </LinearLayout>
+</RelativeLayout>
