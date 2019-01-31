@@ -64,11 +64,11 @@ public class LoginRegisterActivity extends AppCompatActivity {
                                 super.onPostExecute(success);
                                 if (success) {
                                     startMainActivity("");
-                                    Toast.makeText(getApplicationContext(),
-                                            "Udało się...",Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getApplicationContext(),
+//                                            "Udało się...",Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(getApplicationContext(),
-                                            "Nie udało się zalogować22...",Toast.LENGTH_SHORT).show();
+                                            "Nieprawidłowe dane logowania",Toast.LENGTH_SHORT).show();
                                 }
                                 progressBar.setVisibility(View.GONE);
                                 loginButton.setEnabled(true);
@@ -83,7 +83,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
     private void startMainActivity(String name) {
         String token = sharedPreferences.getString(Constants.SharedPref_Token, "");
-        LOG.error(token);
+       // LOG.error(token);
         ApiClient.getInstance().authorize(token);
         Intent mIntent = new Intent(LoginRegisterActivity.this, ChoiceSaveActivity.class);
         mIntent.putExtra("name", name);
