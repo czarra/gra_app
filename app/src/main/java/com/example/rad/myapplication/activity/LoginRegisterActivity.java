@@ -1,6 +1,7 @@
 package com.example.rad.myapplication.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +15,14 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.rad.myapplication.R;
+import com.example.rad.myapplication.api.ApiClient;
 import com.example.rad.myapplication.constants.Constants;
 import com.example.rad.myapplication.data.LoginUser;
 import com.example.rad.myapplication.tasks.LoginUserTask;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class LoginRegisterActivity extends AppCompatActivity {
 
@@ -24,6 +30,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
     private EditText emailField, passwordField;
     private ProgressBar progressBar ;
     private Button loginButton;
+    private static final Logger LOG = LoggerFactory.getLogger(LoginUserTask.class);
 
 
     @Override
@@ -39,6 +46,10 @@ public class LoginRegisterActivity extends AppCompatActivity {
         progressBar= (ProgressBar) findViewById(R.id.progressBar1);
         loginButton = (Button)findViewById(R.id.loginButton);
 
+        if (sharedPreferences.contains(Constants.SharedPref_Token)) {
+            startMainActivity("Hi");
+        }
+
     }
 
     public void onClick(View view) {
@@ -52,6 +63,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                             protected void onPostExecute(Boolean success) {
                                 super.onPostExecute(success);
                                 if (success) {
+                                    startMainActivity("");
                                     Toast.makeText(getApplicationContext(),
                                             "Udało się...",Toast.LENGTH_SHORT).show();
                                 } else {
@@ -67,5 +79,15 @@ public class LoginRegisterActivity extends AppCompatActivity {
           default:
               break;
         }
+    }
+
+    private void startMainActivity(String name) {
+        String token = sharedPreferences.getString(Constants.SharedPref_Token, "");
+        LOG.error(token);
+        ApiClient.getInstance().authorize(token);
+        Intent mIntent = new Intent(LoginRegisterActivity.this, ChoiceSaveActivity.class);
+        mIntent.putExtra("name", name);
+        startActivity(mIntent);
+        finish();
     }
 }
