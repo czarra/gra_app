@@ -1,9 +1,7 @@
 package com.example.rad.myapplication.api;
 
 
-/**
- * Created by Rad on 2019-01-28.
- */
+
 
 public class ApiException extends Exception {
 

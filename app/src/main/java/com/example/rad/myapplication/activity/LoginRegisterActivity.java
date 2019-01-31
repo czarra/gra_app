@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.rad.myapplication.R;
@@ -18,6 +19,9 @@ import com.example.rad.myapplication.tasks.LoginUserTask;
 public class LoginRegisterActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
+    private EditText emailField, passwordField;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +31,16 @@ public class LoginRegisterActivity extends AppCompatActivity {
         sharedPreferences =
                 getApplicationContext().getSharedPreferences(Constants.APP_NAME, Context.MODE_PRIVATE);
 
+        passwordField = (EditText) findViewById(R.id.password);
+        emailField = (EditText) findViewById(R.id.email);
+
     }
 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.loginButton:
-                    LoginUser credentials = LoginUser.regular("root","!QAZ2wsx.");
+
+                    LoginUser credentials = LoginUser.regular(emailField.getText().toString(), passwordField.getText().toString());
                         LoginUserTask login = new LoginUserTask(sharedPreferences, credentials) {
                             @Override
                             protected void onPostExecute(Boolean success) {

@@ -8,8 +8,8 @@ public class LoginUser {
 
     private String password;
 
-    public static LoginUser regular(String email, String password) {
-        return new LoginUser(email, password);
+    public static LoginUser regular(String username, String password) {
+        return new LoginUser(username, password);
     }
 
     private LoginUser(String username, String password) {

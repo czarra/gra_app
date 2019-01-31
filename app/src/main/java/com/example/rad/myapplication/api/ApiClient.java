@@ -15,9 +15,6 @@ import java.net.HttpURLConnection;
 import java.util.concurrent.TimeUnit;
 
 
-/**
- * Created by Rad on 2019-01-28.
- */
 
 public final class ApiClient {
 

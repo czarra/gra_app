@@ -29,10 +29,11 @@ public class LoginUserTask extends AsyncTask<String, String, Boolean> {
     protected Boolean doInBackground(String... params) {
         try {
             LOG.error(Constants.Login_URL);
-            LOG.error(new Gson().toJson(credentials));
-            String result = client.getURL(Constants.Login_URL+"?username=root&password=!QAZ2sx.", String.class);//, new Gson().toJson(credentials));
+            //LOG.error(credentials.getPassword());
+            String result = client.postURL(Constants.Login_URL, String.class, new Gson().toJson(credentials));
+            LOG.error(result);
             JSONObject jsonObject = new JSONObject(result);
-            LOG.error( jsonObject.toString());
+            //LOG.error( jsonObject.toString());
             if (jsonObject.has("apiKey") && !jsonObject.getString("apiKey").isEmpty()) {
                 LOG.error( jsonObject.getString("apiKey"));
                 sharedPreferences.edit().putString(Constants.SharedPref_Token, jsonObject.getString("apiKey")).apply();
