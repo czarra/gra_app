@@ -28,15 +28,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:paddingLeft="35px"
-            android:paddingRight="35px">
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp">
 
             <TextView
                 android:id="@+id/textWelcome"
@@ -52,7 +50,7 @@
                 android:id="@+id/textLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35px"
+                android:layout_marginTop="25dp"
                 android:text="@string/textLogin"
                 android:textAlignment="center"
                 android:textColor="@color/white"
@@ -63,8 +61,8 @@
                 style="@style/EditTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="55px"
-                android:layout_marginBottom="15px"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
                 android:hint="@string/email"
                 android:textAlignment="viewStart"
 
@@ -87,7 +85,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/login_button"
-                android:clickable="true"
                 android:letterSpacing="0.06"
                 android:onClick="onClick"
                 android:text="@string/loginButton"
@@ -110,8 +107,8 @@
                 style="@style/EditTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="55px"
-                android:layout_marginBottom="15px"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
                 android:hint="@string/username"
                 android:textColor="@color/warmGrey"
                 android:textSize="7pt" />
@@ -121,7 +118,7 @@
                 style="@style/EditTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15px"
+                android:layout_marginBottom="5dp"
                 android:hint="@string/email"
                 android:textAlignment="viewStart"
 
@@ -133,7 +130,7 @@
                 style="@style/EditTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15px"
+                android:layout_marginBottom="5dp"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textColor="@color/warmGrey"
@@ -156,7 +153,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/login_button"
-                android:clickable="true"
                 android:letterSpacing="0.06"
                 android:onClick="onClick"
                 android:text="@string/registerButton"

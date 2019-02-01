@@ -5,10 +5,10 @@
     android:background="@color/app_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LoginRegisterActivity">
+    tools:context=".activity.ChoiceSaveActivity">
 
     <ProgressBar
-        android:id="@+id/progressBar1"
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,5 +17,52 @@
         android:indeterminate="true"
         android:visibility="gone"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp">
+
+        <TextView
+            android:id="@+id/textSaveOnGame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/saveOnGameWelcome"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10pt" />
+
+        <EditText
+            android:id="@+id/gameCode"
+            style="@style/EditTextDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/gameCode"
+            android:textColor="@color/warmGrey"
+            android:textSize="7pt" />
+
+        <Button
+            android:id="@+id/saveToGameButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/login_button"
+            android:letterSpacing="0.06"
+            android:text="@string/saveOnGame"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="6pt" />
+
+    </LinearLayout>
 
 </RelativeLayout>

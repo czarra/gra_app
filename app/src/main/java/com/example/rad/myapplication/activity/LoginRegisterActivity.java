@@ -62,30 +62,38 @@ public class LoginRegisterActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.loginButton:
-                loginButton.setEnabled(false);
-                progressBar.setVisibility(View.VISIBLE);
-                LoginUser credentials = LoginUser.regular(emailField.getText().toString(), passwordField.getText().toString());
-                LoginUserTask login = new LoginUserTask(sharedPreferences, credentials) {
-                    @Override
-                    protected void onPostExecute(Boolean success) {
-                        super.onPostExecute(success);
-                        if (success) {
-                            startMainActivity("");
-                        } else {
-                            Toast.makeText(getApplicationContext(),
-                                    "Nieprawidłowe dane logowania",Toast.LENGTH_SHORT).show();
+                if(emailField.getText().toString().equals("")
+                        ||  passwordField.getText().toString().equals("")){
+
+                    Toast.makeText(getApplicationContext(),
+                            "Pola nie mogę być puste!", Toast.LENGTH_SHORT).show();
+
+                }else {
+                    loginButton.setEnabled(false);
+                    progressBar.setVisibility(View.VISIBLE);
+                    LoginUser credentials = LoginUser.regular(emailField.getText().toString(), passwordField.getText().toString());
+                    LoginUserTask login = new LoginUserTask(sharedPreferences, credentials) {
+                        @Override
+                        protected void onPostExecute(Boolean success) {
+                            super.onPostExecute(success);
+                            if (success) {
+                                startMainActivity("");
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        "Nieprawidłowe dane logowania", Toast.LENGTH_SHORT).show();
+                            }
+                            progressBar.setVisibility(View.GONE);
+                            loginButton.setEnabled(true);
                         }
-                        progressBar.setVisibility(View.GONE);
-                        loginButton.setEnabled(true);
-                    }
-                };
-                login.execute();
+                    };
+                    login.execute();
+                }
                 break;
 
             case R.id.registerButton:
                 String rePassword = new String(passwordRegisterRe.getText().toString());
                 if(usernameRegister.getText().toString().equals("")
-                        &&  emailRegister.getText().toString().equals("")){
+                        ||  emailRegister.getText().toString().equals("")){
 
                     Toast.makeText(getApplicationContext(),
                             "Pola nie mogę być puste!", Toast.LENGTH_SHORT).show();

@@ -12,7 +12,11 @@
     <string name="username">Username</string>
     <string name="registerButton">Zarejestruj</string>
     <!--first screen-->
+    <!--choise_save-->
+    <string name="saveOnGameWelcome">Podaj kod gry aby dołączyć do zabawy :)</string>
+    <string name="saveOnGame">Dołącz do zabawy</string>
 
+    <string name="gameCode">Kod gry</string>
 
     <string name="logoutText">Wyloguj</string>
 

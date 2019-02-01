@@ -17,11 +17,23 @@ import com.example.rad.myapplication.R;
 import com.example.rad.myapplication.api.ApiClient;
 import com.example.rad.myapplication.constants.Constants;
 import com.example.rad.myapplication.data.LoginUser;
+import com.example.rad.myapplication.data.SaveGame;
 import com.example.rad.myapplication.tasks.LoginUserTask;
+import com.example.rad.myapplication.tasks.SaveGameTask;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 public class ChoiceSaveActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
+    private Button saveToGameButton;
+    private EditText gameCode;
+    private ProgressBar progressBar;
+    private static final Logger LOG = LoggerFactory.getLogger(LoginUserTask.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +41,41 @@ public class ChoiceSaveActivity extends AppCompatActivity {
         setContentView(R.layout.choise_save);
         sharedPreferences =
                 getApplicationContext().getSharedPreferences(Constants.APP_NAME, Context.MODE_PRIVATE);
+        saveToGameButton = (Button) findViewById(R.id.saveToGameButton);
+        gameCode = (EditText) findViewById(R.id.gameCode);
+        progressBar= (ProgressBar) findViewById(R.id.progressBar);
 
+        saveToGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(gameCode.getText().toString().equals("")){
+
+                    Toast.makeText(getApplicationContext(),
+                            "Pola nie mogę być puste!", Toast.LENGTH_SHORT).show();
+
+                }else {
+                    saveToGameButton.setEnabled(false);
+                    progressBar.setVisibility(View.VISIBLE);
+                    SaveGame game = new SaveGame(gameCode.getText().toString());
+                    SaveGameTask gameTask = new SaveGameTask(game) {
+                        @Override
+                        protected void onPostExecute(Boolean success) {
+                            super.onPostExecute(success);
+                            if (success) {
+                                Toast.makeText(getApplicationContext(),
+                                        "OKOK", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        "Nieprawidłowe dane logowania", Toast.LENGTH_SHORT).show();
+                            }
+                            progressBar.setVisibility(View.GONE);
+                            saveToGameButton.setEnabled(true);
+                        }
+                    };
+                    gameTask.execute();
+                }
+            }
+        });
 
     }
 
