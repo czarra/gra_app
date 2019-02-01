@@ -139,6 +139,8 @@ public final class ApiClient {
                     .withUrl(url)
                     .withAuthorization(authToken)
                     .get();
+            LOG.error(authToken);
+            LOG.error(connection.toString());
             return createResponse(connection, responseClass);
         } finally {
             if (connection != null) {
