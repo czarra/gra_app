@@ -18,7 +18,9 @@ import com.example.rad.myapplication.R;
 import com.example.rad.myapplication.api.ApiClient;
 import com.example.rad.myapplication.constants.Constants;
 import com.example.rad.myapplication.data.LoginUser;
+import com.example.rad.myapplication.data.RegisterUser;
 import com.example.rad.myapplication.tasks.LoginUserTask;
+import com.example.rad.myapplication.tasks.RegisterUserTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +29,10 @@ import org.slf4j.LoggerFactory;
 public class LoginRegisterActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
-    private EditText emailField, passwordField;
+    private EditText emailField, passwordField,usernameRegister,emailRegister,passwordRegister,passwordRegisterRe;
     private ProgressBar progressBar ;
     private Button loginButton;
+    private Button registerButton;
     private static final Logger LOG = LoggerFactory.getLogger(LoginUserTask.class);
 
 
@@ -45,7 +48,11 @@ public class LoginRegisterActivity extends AppCompatActivity {
         emailField = (EditText) findViewById(R.id.email);
         progressBar= (ProgressBar) findViewById(R.id.progressBar1);
         loginButton = (Button)findViewById(R.id.loginButton);
-
+        registerButton = (Button)findViewById(R.id.registerButton);
+        usernameRegister = (EditText) findViewById(R.id.usernameRegister);
+        emailRegister = (EditText) findViewById(R.id.emailRegister);
+        passwordRegister = (EditText) findViewById(R.id.passwordRegister);
+        passwordRegisterRe = (EditText) findViewById(R.id.passwordRegisterRe);
         if (sharedPreferences.contains(Constants.SharedPref_Token)) {
             startMainActivity("Hi");
         }
@@ -57,27 +64,55 @@ public class LoginRegisterActivity extends AppCompatActivity {
             case R.id.loginButton:
                 loginButton.setEnabled(false);
                 progressBar.setVisibility(View.VISIBLE);
-                    LoginUser credentials = LoginUser.regular(emailField.getText().toString(), passwordField.getText().toString());
-                        LoginUserTask login = new LoginUserTask(sharedPreferences, credentials) {
-                            @Override
-                            protected void onPostExecute(Boolean success) {
-                                super.onPostExecute(success);
-                                if (success) {
-                                    startMainActivity("");
-//                                    Toast.makeText(getApplicationContext(),
-//                                            "Udało się...",Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getApplicationContext(),
-                                            "Nieprawidłowe dane logowania",Toast.LENGTH_SHORT).show();
-                                }
-                                progressBar.setVisibility(View.GONE);
-                                loginButton.setEnabled(true);
-                            }
-                        };
-                        login.execute();
+                LoginUser credentials = LoginUser.regular(emailField.getText().toString(), passwordField.getText().toString());
+                LoginUserTask login = new LoginUserTask(sharedPreferences, credentials) {
+                    @Override
+                    protected void onPostExecute(Boolean success) {
+                        super.onPostExecute(success);
+                        if (success) {
+                            startMainActivity("");
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    "Nieprawidłowe dane logowania",Toast.LENGTH_SHORT).show();
+                        }
+                        progressBar.setVisibility(View.GONE);
+                        loginButton.setEnabled(true);
+                    }
+                };
+                login.execute();
                 break;
-          default:
-              break;
+
+            case R.id.registerButton:
+                String rePassword = new String(passwordRegisterRe.getText().toString());
+                if(!rePassword.isEmpty() && rePassword.equals(passwordRegister.getText().toString())) {
+                    registerButton.setEnabled(false);
+                    progressBar.setVisibility(View.VISIBLE);
+                    RegisterUser credentialsRegister = RegisterUser.regular(usernameRegister.getText().toString()
+                            , emailRegister.getText().toString()
+                            , passwordRegister.getText().toString());
+                    RegisterUserTask register = new RegisterUserTask(credentialsRegister) {
+                        @Override
+                        protected void onPostExecute(Boolean success) {
+                            super.onPostExecute(success);
+                            if (success) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Udało się można się zalogować", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        "Nieprawidłowe dane!", Toast.LENGTH_SHORT).show();
+                            }
+                            progressBar.setVisibility(View.GONE);
+                            registerButton.setEnabled(true);
+                        }
+                    };
+                    register.execute();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "Nieprawigłowe hasło!", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
         }
     }
 

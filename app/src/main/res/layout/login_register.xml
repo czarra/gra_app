@@ -18,64 +18,152 @@
         android:visibility="gone"
         />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:paddingLeft="35px"
-        android:paddingRight="35px"
-        android:focusableInTouchMode="true"
+        android:layout_gravity="end|top"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textEmail"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:text="@string/welcome"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="10pt" />
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingLeft="35px"
+            android:paddingRight="35px">
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/EditTextDefault"
-            android:hint="@string/email"
-            android:textSize="7pt"
-            android:layout_marginTop="55px"
-            android:layout_marginBottom="15px"
+            <TextView
+                android:id="@+id/textWelcome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:text="@string/welcome"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="10pt" />
 
-            android:textAlignment="viewStart"
-            android:textColor="@color/warmGrey" />
+            <TextView
+                android:id="@+id/textLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35px"
+                android:text="@string/textLogin"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="8pt" />
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/EditTextDefault"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="@color/warmGrey"
-            android:textSize="7pt" />
+            <EditText
+                android:id="@+id/email"
+                style="@style/EditTextDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55px"
+                android:layout_marginBottom="15px"
+                android:hint="@string/email"
+                android:textAlignment="viewStart"
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/login_button"
-            android:clickable="true"
-            android:onClick="onClick"
-            android:text="@string/logintext"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:letterSpacing="0.06"
-            android:textSize="6pt"
-            />
-    </LinearLayout>
+                android:textColor="@color/warmGrey"
+                android:textSize="7pt" />
+
+            <EditText
+                android:id="@+id/password"
+                style="@style/EditTextDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="@color/warmGrey"
+                android:textSize="7pt" />
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/login_button"
+                android:clickable="true"
+                android:letterSpacing="0.06"
+                android:onClick="onClick"
+                android:text="@string/loginButton"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="6pt" />
+
+            <TextView
+                android:id="@+id/textRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:text="@string/textRegister"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="8pt" />
+
+            <EditText
+                android:id="@+id/usernameRegister"
+                style="@style/EditTextDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55px"
+                android:layout_marginBottom="15px"
+                android:hint="@string/username"
+                android:textColor="@color/warmGrey"
+                android:textSize="7pt" />
+
+            <EditText
+                android:id="@+id/emailRegister"
+                style="@style/EditTextDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15px"
+                android:hint="@string/email"
+                android:textAlignment="viewStart"
+
+                android:textColor="@color/warmGrey"
+                android:textSize="7pt" />
+
+            <EditText
+                android:id="@+id/passwordRegister"
+                style="@style/EditTextDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15px"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="@color/warmGrey"
+                android:textSize="7pt" />
+
+            <EditText
+                android:id="@+id/passwordRegisterRe"
+                style="@style/EditTextDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/passwordRe"
+                android:inputType="textPassword"
+                android:textColor="@color/warmGrey"
+                android:textSize="7pt" />
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/login_button"
+                android:clickable="true"
+                android:letterSpacing="0.06"
+                android:onClick="onClick"
+                android:text="@string/registerButton"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="6pt" />
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

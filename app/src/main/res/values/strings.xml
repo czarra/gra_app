@@ -1,10 +1,19 @@
 <resources>
     <string name="app_name">Gra Miejska</string>
 
+    <!--first screen-->
     <string name="email">Email</string>
     <string name="password">Hasło</string>
+    <string name="passwordRe">Powtórz Hasło</string>
     <string name="welcome">Witamy i życzymy udanej zabawy.</string>
-    <string name="logintext">Login</string>
+    <string name="textLogin">Logowanie</string>
+    <string name="loginButton">Login</string>
+    <string name="textRegister">Rejestracja</string>
+    <string name="username">Username</string>
+    <string name="registerButton">Zarejestruj</string>
+    <!--first screen-->
+
+
     <string name="logoutText">Wyloguj</string>
 
 </resources>
