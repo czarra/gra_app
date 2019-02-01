@@ -23,8 +23,10 @@ public class RegisterUserTask extends AsyncTask<String, String, Boolean> {
     private final RegisterUser credentials;
     private final ApiClient client = ApiClient.getInstance();
     private String message;
+    private SharedPreferences sharedPreferences;
 
-    protected RegisterUserTask( RegisterUser credentials) {
+    protected RegisterUserTask( SharedPreferences sharedPreferences, RegisterUser credentials) {
+        this.sharedPreferences = sharedPreferences;
         this.credentials = credentials;
     }
 
@@ -41,15 +43,18 @@ public class RegisterUserTask extends AsyncTask<String, String, Boolean> {
             LOG.error(result);
             JSONObject jsonObject = new JSONObject(result);
             //LOG.error( jsonObject.toString());
-            if (jsonObject.has("ok") && jsonObject.getString("ok").equals("true")) {
-                LOG.error( jsonObject.getString("ok"));
+            if (jsonObject.has("ok")
+                    && jsonObject.getString("ok").equals("true")
+                    && jsonObject.has("apiKey")
+                    && !jsonObject.getString("apiKey").isEmpty()) {
+                sharedPreferences.edit().putString(Constants.SharedPref_Token, jsonObject.getString("apiKey")).apply();
                 return true;
             } else if(jsonObject.has("error")){
                 message="";
                 JSONObject error = jsonObject.getJSONObject("error");
                 Iterator iterator = error.keys();
                 //@fixme
-                // 
+                //
                 while(iterator.hasNext()){
                     String key = (String)iterator.next();
                     String value = error.getString(key);

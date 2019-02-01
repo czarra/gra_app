@@ -98,13 +98,14 @@ public class LoginRegisterActivity extends AppCompatActivity {
                     RegisterUser credentialsRegister = RegisterUser.regular(usernameRegister.getText().toString()
                             , emailRegister.getText().toString()
                             , passwordRegister.getText().toString());
-                    RegisterUserTask register = new RegisterUserTask(credentialsRegister) {
+                    RegisterUserTask register = new RegisterUserTask(sharedPreferences,credentialsRegister) {
                         @Override
                         protected void onPostExecute(Boolean success) {
                             super.onPostExecute(success);
                             if (success) {
-                                Toast.makeText(getApplicationContext(),
-                                        "Udało się można się zalogować", Toast.LENGTH_SHORT).show();
+                                startMainActivity("");
+//                                Toast.makeText(getApplicationContext(),
+//                                        "Udało się można się zalogować", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getApplicationContext(),
                                         "Nieprawidłowe dane! "+ super.getMessage(), Toast.LENGTH_SHORT).show();
