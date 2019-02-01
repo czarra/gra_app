@@ -84,7 +84,15 @@ public class LoginRegisterActivity extends AppCompatActivity {
 
             case R.id.registerButton:
                 String rePassword = new String(passwordRegisterRe.getText().toString());
-                if(!rePassword.isEmpty() && rePassword.equals(passwordRegister.getText().toString())) {
+                if(usernameRegister.getText().toString().equals("")
+                        &&  emailRegister.getText().toString().equals("")){
+
+                    Toast.makeText(getApplicationContext(),
+                            "Pola nie mogę być puste!", Toast.LENGTH_SHORT).show();
+
+                }else if(!rePassword.isEmpty()
+                        && rePassword.equals(passwordRegister.getText().toString())) {
+
                     registerButton.setEnabled(false);
                     progressBar.setVisibility(View.VISIBLE);
                     RegisterUser credentialsRegister = RegisterUser.regular(usernameRegister.getText().toString()
@@ -99,7 +107,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                                         "Udało się można się zalogować", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getApplicationContext(),
-                                        "Nieprawidłowe dane!", Toast.LENGTH_SHORT).show();
+                                        "Nieprawidłowe dane! "+ super.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                             progressBar.setVisibility(View.GONE);
                             registerButton.setEnabled(true);
@@ -107,6 +115,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                     };
                     register.execute();
                 } else {
+
                     Toast.makeText(getApplicationContext(),
                             "Nieprawigłowe hasło!", Toast.LENGTH_SHORT).show();
                 }

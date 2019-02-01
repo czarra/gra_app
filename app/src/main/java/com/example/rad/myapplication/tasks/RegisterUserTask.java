@@ -9,9 +9,12 @@ import com.example.rad.myapplication.data.LoginUser;
 import com.example.rad.myapplication.data.RegisterUser;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Iterator;
 
 public class RegisterUserTask extends AsyncTask<String, String, Boolean> {
 
@@ -19,11 +22,16 @@ public class RegisterUserTask extends AsyncTask<String, String, Boolean> {
 
     private final RegisterUser credentials;
     private final ApiClient client = ApiClient.getInstance();
+    private String message;
 
     protected RegisterUserTask( RegisterUser credentials) {
         this.credentials = credentials;
     }
 
+    public String getMessage() {
+
+        return message;
+    }
     @Override
     protected Boolean doInBackground(String... params) {
         try {
@@ -33,9 +41,21 @@ public class RegisterUserTask extends AsyncTask<String, String, Boolean> {
             LOG.error(result);
             JSONObject jsonObject = new JSONObject(result);
             //LOG.error( jsonObject.toString());
-            if (jsonObject.has("ok") && jsonObject.getString("ok")=="true") {
+            if (jsonObject.has("ok") && jsonObject.getString("ok").equals("true")) {
                 LOG.error( jsonObject.getString("ok"));
                 return true;
+            } else if(jsonObject.has("error")){
+                message="";
+                JSONObject error = jsonObject.getJSONObject("error");
+                Iterator iterator = error.keys();
+                //@fixme
+                // 
+                while(iterator.hasNext()){
+                    String key = (String)iterator.next();
+                    String value = error.getString(key);
+                    message +="   "+key+" : "+value;
+                    break;
+                }
             }
 
         } catch (Exception exp) {

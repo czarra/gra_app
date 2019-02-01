@@ -90,7 +90,7 @@ class ConnectionBuilder {
     }
 
     private String convertStringPOST(String postData){
-        LOG.error("sdfsaff"+postData);
+        //LOG.error("sdfsaff"+postData);
         try{
             JSONObject myjson = new JSONObject(postData);
             Iterator iter = myjson.keys();
@@ -106,6 +106,7 @@ class ConnectionBuilder {
         }
         return postData;
     }
+
     private static String removeLastChar(String str) {
         if(str.length()>0) {
             return str.substring(0, str.length() - 1);
