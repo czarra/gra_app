@@ -165,4 +165,23 @@ public final class ApiClient {
             }
         }
     }
+
+    @Loggable
+    @Cacheable.FlushAfter
+    public synchronized <Response> Response postURLWithAuth(String url, Class<Response> responseClass, String data)
+            throws ApiException {
+        checkIfAuthorized();
+        HttpURLConnection connection = null;
+        try {
+            connection = new ConnectionBuilder()
+                    .withUrl(url)
+                    .withAuthorization(authToken)
+                    .post(data);
+            return createResponse(connection, responseClass);
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+    }
 }

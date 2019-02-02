@@ -70,7 +70,7 @@ class ConnectionBuilder {
 
             if (token != null) {
                 LOG.info("IS TOKEN ");
-                connection.setRequestProperty("Authorization", "Token " + token);
+                connection.setRequestProperty("Authorization", token);
             }
 
             if (data != null) {

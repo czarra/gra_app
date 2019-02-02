@@ -23,9 +23,10 @@ public class SaveGameTask extends AsyncTask<String, String, Boolean> {
     private SaveGame data;
     private final ApiClient client = ApiClient.getInstance();
     private String message;
+    private SharedPreferences sharedPreferences;
 
-    protected SaveGameTask(SaveGame data) {
-
+    protected SaveGameTask(SharedPreferences sharedPreferences, SaveGame data) {
+        this.sharedPreferences = sharedPreferences;
         this.data = data;
     }
     public String getMessage() {
@@ -37,14 +38,20 @@ public class SaveGameTask extends AsyncTask<String, String, Boolean> {
     protected Boolean doInBackground(String... params) {
         try {
             LOG.debug("Save Game: "+ new Gson().toJson(data));
-            String result =  client.getURLWithAuth(Constants.NUMBER_TEST_URL+"?code="+data.getCode(), String.class);
+            String result =  client.postURLWithAuth(Constants.SAVE_ON_GAME_URL, String.class,new Gson().toJson(data));
             LOG.error(result);
             JSONObject jsonObject = new JSONObject(result);
 
-            if(jsonObject.has("http_code") && !jsonObject.getString("http_code").equals("200")){
-                return false;
+            if(jsonObject.has("code") && jsonObject.has("id")) {
+                sharedPreferences.edit().putString(Constants.SharedPref_ActiveGameId, jsonObject.getString("id")).apply();
+                return true;
             }
-            return true;
+            if(jsonObject.has("error") && !jsonObject.getString("error").equals("")){
+                message =jsonObject.getString("error");
+                LOG.error(message);
+            }
+            return false;
+
         } catch (ApiException | JSONException exp) {
             LOG.error(exp.getMessage(), exp);
         }

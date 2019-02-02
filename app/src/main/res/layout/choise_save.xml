@@ -63,6 +63,14 @@
             android:textColor="@color/white"
             android:textSize="6pt" />
 
+        <android.support.v7.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:splitMotionEvents="true"
+            tools:listitem="@layout/fragment_game" />
+
     </LinearLayout>
 
 </RelativeLayout>

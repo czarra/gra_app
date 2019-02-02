@@ -28,4 +28,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.7'
     implementation 'com.jcabi:jcabi-aspects:0.22'
     implementation 'org.slf4j:slf4j-android:1.7.21'
+    implementation 'com.android.support:recyclerview-v7:26.0.0'
 }

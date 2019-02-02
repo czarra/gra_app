@@ -15,6 +15,7 @@
     <!--choise_save-->
     <string name="saveOnGameWelcome">Podaj kod gry aby dołączyć do zabawy :)</string>
     <string name="saveOnGame">Dołącz do zabawy</string>
+    <string name="textGoButton">Kontynuuj</string>
 
     <string name="gameCode">Kod gry</string>
 

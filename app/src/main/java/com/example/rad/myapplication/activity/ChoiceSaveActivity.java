@@ -57,16 +57,16 @@ public class ChoiceSaveActivity extends AppCompatActivity {
                     saveToGameButton.setEnabled(false);
                     progressBar.setVisibility(View.VISIBLE);
                     SaveGame game = new SaveGame(gameCode.getText().toString());
-                    SaveGameTask gameTask = new SaveGameTask(game) {
+                    SaveGameTask gameTask = new SaveGameTask(sharedPreferences,game) {
                         @Override
                         protected void onPostExecute(Boolean success) {
                             super.onPostExecute(success);
                             if (success) {
                                 Toast.makeText(getApplicationContext(),
-                                        "OKOK", Toast.LENGTH_SHORT).show();
+                                        "Udało się zapisać ", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getApplicationContext(),
-                                        "Nieprawidłowe dane logowania", Toast.LENGTH_SHORT).show();
+                                        super.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                             progressBar.setVisibility(View.GONE);
                             saveToGameButton.setEnabled(true);
