@@ -49,7 +49,7 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:visibility="gone"
-            android:textSize="10pt" />
+            android:textSize="8pt" />
 
         <TextView
             android:id="@+id/textTasksGame"

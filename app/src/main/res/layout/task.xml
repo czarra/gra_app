@@ -38,7 +38,7 @@
             android:text="@string/saveOnGameWelcome"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="8pt" />
+            android:textSize="10pt" />
         <TextView
             android:id="@+id/textDescription"
             android:layout_width="match_parent"

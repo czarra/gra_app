@@ -31,6 +31,6 @@
         android:text="@string/textGoButton"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="8pt" />
+        android:textSize="6pt" />
 </RelativeLayout>
 
