@@ -38,41 +38,30 @@
             android:text="@string/saveOnGameWelcome"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:visibility="gone"
-            android:textSize="10pt" />
+            android:textSize="8pt" />
         <TextView
             android:id="@+id/textDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:text="@string/saveOnGameWelcome"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:visibility="gone"
-            android:textSize="10pt" />
+            android:textSize="8pt" />
 
-        <TextView
-            android:id="@+id/textTasksGame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/saveOnGameWelcome"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            android:textSize="6pt" />
 
         <Button
-            android:id="@+id/goToTaskButton"
+            android:id="@+id/checkButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/login_button"
             android:letterSpacing="0.06"
-            android:text="@string/goToButton"
+            android:text="@string/checkButton"
             android:textAllCaps="true"
-            android:visibility="gone"
             android:textColor="@color/white"
             android:textSize="6pt" />
 

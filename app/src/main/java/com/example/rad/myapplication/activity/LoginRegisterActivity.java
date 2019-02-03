@@ -54,7 +54,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
         passwordRegister = (EditText) findViewById(R.id.passwordRegister);
         passwordRegisterRe = (EditText) findViewById(R.id.passwordRegisterRe);
         if (sharedPreferences.contains(Constants.SharedPref_Token)) {
-            startMainActivity("Hi");
+            startMainActivity();
         }
 
     }
@@ -77,7 +77,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                         protected void onPostExecute(Boolean success) {
                             super.onPostExecute(success);
                             if (success) {
-                                startMainActivity("");
+                                startMainActivity();
                             } else {
                                 Toast.makeText(getApplicationContext(),
                                         "Nieprawidłowe dane logowania", Toast.LENGTH_SHORT).show();
@@ -111,7 +111,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                         protected void onPostExecute(Boolean success) {
                             super.onPostExecute(success);
                             if (success) {
-                                startMainActivity("");
+                                startMainActivity();
 //                                Toast.makeText(getApplicationContext(),
 //                                        "Udało się można się zalogować", Toast.LENGTH_SHORT).show();
                             } else {
@@ -134,11 +134,10 @@ public class LoginRegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void startMainActivity(String name) {
+    private void startMainActivity() {
         String token = sharedPreferences.getString(Constants.SharedPref_Token, "");
         ApiClient.getInstance().authorize(token);
         Intent mIntent = new Intent(LoginRegisterActivity.this, ChoiceSaveActivity.class);
-        mIntent.putExtra("name", name);
         startActivity(mIntent);
         finish();
     }

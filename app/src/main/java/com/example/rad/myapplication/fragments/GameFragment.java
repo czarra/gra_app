@@ -111,10 +111,11 @@ public class GameFragment extends Fragment {
                 String jsonResponse = client.getURLWithAuth(Constants.ALL_USER_GAME_URL, String.class);
                 if(jsonResponse.length()>5) {
                     JSONObject jsonObject = new JSONObject(jsonResponse);
+                    LOG.error(jsonObject.toString());
                     JSONArray games = jsonObject.getJSONArray("data");
                     for (int i = 0; i < games.length(); i++) {
                         JSONObject gamesObject = games.getJSONObject(i);
-                        Game item = Game.fromJsonObject(gamesObject);
+                        Game item = Game.fromJsonObject(gamesObject,false);
                         if (item != null) {
                             list.add(item);
                         }

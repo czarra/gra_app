@@ -36,7 +36,7 @@ public class GameActivity extends AppCompatActivity  {
 
     private SharedPreferences sharedPreferences;
     private Button goToTaskButton;
-    private TextView textName, textDescription;
+    private TextView textName, textDescription, textTasksGame;
     private ProgressBar progressBar;
     private String code;
   //  private Integer id;
@@ -51,12 +51,12 @@ public class GameActivity extends AppCompatActivity  {
         goToTaskButton = (Button) findViewById(R.id.goToTaskButton);
         textName = (TextView) findViewById(R.id.textName);
         textDescription = (TextView) findViewById(R.id.textDescription);
+        textTasksGame = (TextView) findViewById(R.id.textTasksGame);
 
         progressBar= (ProgressBar) findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
         code =  intent.getStringExtra("code");
-     //   id = intent.getIntExtra("id",0);
 
         RetrieveGame retrieveGame = new RetrieveGame() {
             @Override
@@ -69,10 +69,28 @@ public class GameActivity extends AppCompatActivity  {
             protected void onPostExecute(Game game) {
                 textName.setText(game.getName());
                 textDescription.setText(game.getDescription());
+                textName.setVisibility(View.VISIBLE);
+                textDescription.setVisibility(View.VISIBLE);
+                //show only if is more task
+                if(game.getIsCurrentTask()) {
+                    textTasksGame.setText("Zadanie "+game.getUserTask()+" z "+game.getAllTask());
+                    goToTaskButton.setVisibility(View.VISIBLE);
+                    textTasksGame.setVisibility(View.VISIBLE);
+                }else{
+                    textTasksGame.setText("Gra ukończona");
+                }
+
                 progressBar.setVisibility(View.GONE);
             }
         };
         retrieveGame.execute();
+
+        goToTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTaskActivity();
+            }
+        });
 
     }
 
@@ -105,7 +123,7 @@ public class GameActivity extends AppCompatActivity  {
             return true;
         }
         if (id == R.id.gamesAll) {
-            startMainActivity("");
+            startMainActivity();
 
             return true;
         }
@@ -113,11 +131,17 @@ public class GameActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-    private void startMainActivity(String name) {
+    private void startMainActivity() {
         Intent mIntent = new Intent(GameActivity.this, ChoiceSaveActivity.class);
-        mIntent.putExtra("name", name);
         startActivity(mIntent);
         finish();
+    }
+
+    private void startTaskActivity() {
+        Intent mIntent = new Intent(GameActivity.this, TaskActivity.class);
+        mIntent.putExtra("code", code);
+        startActivity(mIntent);
+       // finish();
     }
 
     class RetrieveGame extends AsyncTask<String, String, Game> {
@@ -133,7 +157,7 @@ public class GameActivity extends AppCompatActivity  {
                 if(jsonResponse.length()>5) {
                     JSONObject jsonObject = new JSONObject(jsonResponse);
                     JSONObject games = jsonObject.getJSONObject("data");
-                    game = Game.fromJsonObject(games);
+                    game = Game.fromJsonObject(games,true);
                 }
 
                 return game;
@@ -147,7 +171,7 @@ public class GameActivity extends AppCompatActivity  {
     @Override
     public void onBackPressed() {
 
-        startMainActivity("");
+        startMainActivity();
     }
     
 }

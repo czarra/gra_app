@@ -21,6 +21,8 @@
 
     <string name="goToButton">Dalej</string>
 
+    <string name="checkButton">Sprawdź</string>
+
     <string name="activeGames">Gry aktywne</string>
     <string name="logoutText">Wyloguj</string>
 
