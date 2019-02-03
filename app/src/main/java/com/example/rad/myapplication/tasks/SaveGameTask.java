@@ -22,11 +22,22 @@ public class SaveGameTask extends AsyncTask<String, String, Boolean> {
 
     private SaveGame data;
     private final ApiClient client = ApiClient.getInstance();
-    private String message;
-    private SharedPreferences sharedPreferences;
+    private String message;;
+    private Integer id=null;
+    private String code=null;
 
-    protected SaveGameTask(SharedPreferences sharedPreferences, SaveGame data) {
-        this.sharedPreferences = sharedPreferences;
+    public Integer getGameId(){
+
+        return this.id;
+    }
+
+    public String getGameCode(){
+
+        return this.code;
+    }
+
+
+    protected SaveGameTask( SaveGame data) {
         this.data = data;
     }
     public String getMessage() {
@@ -43,7 +54,8 @@ public class SaveGameTask extends AsyncTask<String, String, Boolean> {
             JSONObject jsonObject = new JSONObject(result);
 
             if(jsonObject.has("code") && jsonObject.has("id")) {
-                sharedPreferences.edit().putString(Constants.SharedPref_ActiveGameId, jsonObject.getString("id")).apply();
+                id = jsonObject.getInt("id");
+                code = jsonObject.getString("code");
                 return true;
             }
             if(jsonObject.has("error") && !jsonObject.getString("error").equals("")){

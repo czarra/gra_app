@@ -19,7 +19,7 @@
         android:textSize="8pt" />
 
     <Button
-        android:id="@+id/textGo"
+        android:id="@+id/buttonGo"
         android:layout_width="99pt"
         android:layout_height="wrap_content"
         android:layout_marginLeft="45pt"

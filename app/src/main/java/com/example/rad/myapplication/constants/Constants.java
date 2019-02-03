@@ -12,6 +12,9 @@ public class Constants {
     public final static String Login_URL = BASE_URL_LOG_REG + "login";
     public final static String NUMBER_TEST_URL = BASE_URL_API + "number";
     public final static String SAVE_ON_GAME_URL = BASE_URL_API + "save-on-game";
+    public final static String GET_INFO_GAME_URL = BASE_URL_API + "get-info-game";//code
+    public final static String GET_NEXT_TASK_URL = BASE_URL_API + "get-next-task"; //vip
+    public final static String ALL_USER_GAME_URL = BASE_URL_API + "all-user-games"; //empty
 
 
     public final static String SharedPref_Token = "token";

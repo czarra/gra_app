@@ -5,7 +5,7 @@
     android:background="@color/app_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ChoiceSaveActivity">
+    tools:context=".activity.GameActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -31,7 +31,16 @@
         android:paddingRight="25dp">
 
         <TextView
-            android:id="@+id/textSaveOnGame"
+            android:id="@+id/textName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/saveOnGameWelcome"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10pt" />
+        <TextView
+            android:id="@+id/textDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -40,30 +49,20 @@
             android:textColor="@color/white"
             android:textSize="10pt" />
 
-        <EditText
-            android:id="@+id/gameCode"
-            style="@style/EditTextDefault"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="@string/gameCode"
-            android:textColor="@color/warmGrey"
-            android:textSize="7pt" />
 
         <Button
-            android:id="@+id/saveToGameButton"
+            android:id="@+id/goToTaskButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/login_button"
             android:letterSpacing="0.06"
-            android:text="@string/saveOnGame"
+            android:text="@string/goToButton"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="6pt" />
 
-        <include  layout="@layout/content_main" />
 
     </LinearLayout>
 

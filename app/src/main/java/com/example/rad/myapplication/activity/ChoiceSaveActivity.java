@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,8 +18,9 @@ import android.widget.Toast;
 import com.example.rad.myapplication.R;
 import com.example.rad.myapplication.api.ApiClient;
 import com.example.rad.myapplication.constants.Constants;
-import com.example.rad.myapplication.data.LoginUser;
+import com.example.rad.myapplication.data.Game;
 import com.example.rad.myapplication.data.SaveGame;
+import com.example.rad.myapplication.fragments.GameFragment;
 import com.example.rad.myapplication.tasks.LoginUserTask;
 import com.example.rad.myapplication.tasks.SaveGameTask;
 
@@ -27,7 +30,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-public class ChoiceSaveActivity extends AppCompatActivity {
+public class ChoiceSaveActivity extends AppCompatActivity implements GameFragment.OnFragmentInteractionListener {
 
     private SharedPreferences sharedPreferences;
     private Button saveToGameButton;
@@ -45,6 +48,8 @@ public class ChoiceSaveActivity extends AppCompatActivity {
         gameCode = (EditText) findViewById(R.id.gameCode);
         progressBar= (ProgressBar) findViewById(R.id.progressBar);
 
+        loadFragment(GameFragment.newInstance());
+
         saveToGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,13 +62,13 @@ public class ChoiceSaveActivity extends AppCompatActivity {
                     saveToGameButton.setEnabled(false);
                     progressBar.setVisibility(View.VISIBLE);
                     SaveGame game = new SaveGame(gameCode.getText().toString());
-                    SaveGameTask gameTask = new SaveGameTask(sharedPreferences,game) {
+                    SaveGameTask gameTask = new SaveGameTask(game) {
                         @Override
                         protected void onPostExecute(Boolean success) {
                             super.onPostExecute(success);
                             if (success) {
-                                Toast.makeText(getApplicationContext(),
-                                        "Udało się zapisać ", Toast.LENGTH_SHORT).show();
+                                Game lockGame = new Game(super.getGameCode());
+                                starGameActivity(lockGame);
                             } else {
                                 Toast.makeText(getApplicationContext(),
                                         super.getMessage(), Toast.LENGTH_SHORT).show();
@@ -109,6 +114,24 @@ public class ChoiceSaveActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Game game) {
+        starGameActivity(game);
+    }
+
+    private void starGameActivity(Game game) {
+        Intent mIntent = new Intent(this, GameActivity.class);
+        mIntent.putExtra("code", game.getCode());
+        startActivity(mIntent);
+        finish();
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_main, fragment);
+        transaction.commit();
     }
 
 }
