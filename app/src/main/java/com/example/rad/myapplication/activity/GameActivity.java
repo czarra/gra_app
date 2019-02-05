@@ -172,6 +172,7 @@ public class GameActivity extends AppCompatActivity  {
     public void onBackPressed() {
 
         startMainActivity();
+        finish();
     }
     
 }
