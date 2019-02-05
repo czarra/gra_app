@@ -84,7 +84,7 @@ public class Game {
                         jsonObject.getInt("userTask"));
             }
         } catch (JSONException exp) {
-            Log.e("SaveGame class", exp.getMessage());
+            Log.e("Game class", exp.getMessage());
         }
         return null;
     }
