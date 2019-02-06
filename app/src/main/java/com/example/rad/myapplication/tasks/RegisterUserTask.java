@@ -14,7 +14,10 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Array;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.HashMap;
 
 public class RegisterUserTask extends AsyncTask<String, String, Boolean> {
 
@@ -23,11 +26,17 @@ public class RegisterUserTask extends AsyncTask<String, String, Boolean> {
     private final RegisterUser credentials;
     private final ApiClient client = ApiClient.getInstance();
     private String message;
+    private Map<String,String> errorArray;
     private SharedPreferences sharedPreferences;
 
     protected RegisterUserTask( SharedPreferences sharedPreferences, RegisterUser credentials) {
         this.sharedPreferences = sharedPreferences;
         this.credentials = credentials;
+        this.errorArray= new HashMap<>();
+    }
+
+    public Map<String,String> getErrorArray(){
+        return this.errorArray;
     }
 
     public String getMessage() {
@@ -53,13 +62,14 @@ public class RegisterUserTask extends AsyncTask<String, String, Boolean> {
                 message="";
                 JSONObject error = jsonObject.getJSONObject("error");
                 Iterator iterator = error.keys();
-                //@fixme
-                //
+
                 while(iterator.hasNext()){
                     String key = (String)iterator.next();
                     String value = error.getString(key);
+//                    LOG.error(key);
+//                    LOG.error(value);
+                    errorArray.put(key,value);
                     message +="   "+key+" : "+value;
-                    break;
                 }
             }
 

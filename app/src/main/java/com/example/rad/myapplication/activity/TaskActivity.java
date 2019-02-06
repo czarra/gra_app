@@ -67,7 +67,6 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
 
         Intent intent = getIntent();
         code =  intent.getStringExtra("code");
-
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         context = this;
         checkPermission();
@@ -97,14 +96,13 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkPermission()){
+                if(checkPermission() && location != null){
 
-                    if (location != null) {
-                        longitude = location.getLongitude();
-                        latitude = location.getLatitude();
-                        textGPS.setVisibility(View.VISIBLE);
-                        textGPS.setText("Latitude:" +latitude + ", Longitude:" + longitude);
-                    }
+                    longitude = location.getLongitude();
+                    latitude = location.getLatitude();
+                    textGPS.setVisibility(View.VISIBLE);
+                    textGPS.setText("Latitude:" +latitude + ", Longitude:" + longitude);
+
 //                    LOG.error(longitude.toString());
 //                    LOG.error(latitude.toString());
 
@@ -130,6 +128,8 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                                     textName.setVisibility(View.VISIBLE);
                                     textDescription.setVisibility(View.VISIBLE);
                                     checkButton.setVisibility(View.VISIBLE);
+                                    Toast.makeText(getApplicationContext(),
+                                            "To teraz kolejne zadanie!", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 checkButton.setVisibility(View.VISIBLE);
@@ -141,6 +141,10 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                         }
                     };
                     retrieveTaskCheck.execute();
+                } else {
+                    textGPS.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(),
+                            "Nie działa GPS", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -153,10 +157,11 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
             requestPermissions(
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},99);
         } else {
-            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 10, this);
-            // milliseconds,meters
 
+
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 0, this);
+            // milliseconds,meters
             return true;
         }
         return false;

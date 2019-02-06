@@ -78,6 +78,7 @@ public class GameActivity extends AppCompatActivity  {
                     textTasksGame.setVisibility(View.VISIBLE);
                 }else{
                     textTasksGame.setText("Gra ukończona");
+                    textTasksGame.setVisibility(View.VISIBLE);
                 }
 
                 progressBar.setVisibility(View.GONE);

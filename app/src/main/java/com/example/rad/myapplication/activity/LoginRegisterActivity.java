@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rad.myapplication.R;
@@ -25,11 +26,16 @@ import com.example.rad.myapplication.tasks.RegisterUserTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
+
+import javax.validation.constraints.Null;
+
 
 public class LoginRegisterActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
     private EditText emailField, passwordField,usernameRegister,emailRegister,passwordRegister,passwordRegisterRe;
+    private TextView usernameRegisterError,emailRegisterError,passwordRegisterError;
     private ProgressBar progressBar ;
     private Button loginButton;
     private Button registerButton;
@@ -53,6 +59,10 @@ public class LoginRegisterActivity extends AppCompatActivity {
         emailRegister = (EditText) findViewById(R.id.emailRegister);
         passwordRegister = (EditText) findViewById(R.id.passwordRegister);
         passwordRegisterRe = (EditText) findViewById(R.id.passwordRegisterRe);
+
+        usernameRegisterError = (TextView)findViewById(R.id.usernameRegisterError);
+        emailRegisterError = (TextView)findViewById(R.id.emailRegisterError);
+        passwordRegisterError = (TextView)findViewById(R.id.passwordRegisterError);
         if (sharedPreferences.contains(Constants.SharedPref_Token)) {
             startMainActivity();
         }
@@ -91,6 +101,9 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 break;
 
             case R.id.registerButton:
+                usernameRegisterError.setVisibility(View.GONE);
+                emailRegisterError.setVisibility(View.GONE);
+                passwordRegisterError.setVisibility(View.GONE);
                 String rePassword = new String(passwordRegisterRe.getText().toString());
                 if(usernameRegister.getText().toString().equals("")
                         ||  emailRegister.getText().toString().equals("")){
@@ -115,8 +128,23 @@ public class LoginRegisterActivity extends AppCompatActivity {
 //                                Toast.makeText(getApplicationContext(),
 //                                        "Udało się można się zalogować", Toast.LENGTH_SHORT).show();
                             } else {
+                                Map<String,String> errors = super.getErrorArray();
+                                if(errors.get("email") != null){
+                                    emailRegisterError.setText(errors.get("email"));
+                                    emailRegisterError.setVisibility(View.VISIBLE);
+                                }
+                                if(errors.get("username")!= null){
+                                    usernameRegisterError.setText(errors.get("username"));
+                                    usernameRegisterError.setVisibility(View.VISIBLE);
+                                }
+                                if(errors.get("password")!= null){
+                                    passwordRegisterError.setText(errors.get("password"));
+                                    passwordRegisterError.setVisibility(View.VISIBLE);
+                                }
+
+
                                 Toast.makeText(getApplicationContext(),
-                                        "Nieprawidłowe dane! "+ super.getMessage(), Toast.LENGTH_SHORT).show();
+                                        "Nieprawidłowe dane! ", Toast.LENGTH_SHORT).show();
                             }
                             progressBar.setVisibility(View.GONE);
                             registerButton.setEnabled(true);
@@ -124,9 +152,10 @@ public class LoginRegisterActivity extends AppCompatActivity {
                     };
                     register.execute();
                 } else {
-
-                    Toast.makeText(getApplicationContext(),
-                            "Nieprawigłowe hasło!", Toast.LENGTH_SHORT).show();
+                    passwordRegisterError.setText("Nieprawidłowe hasło");
+                    passwordRegisterError.setVisibility(View.VISIBLE);
+//                    Toast.makeText(getApplicationContext(),
+//                            "Nieprawigłowe hasło!", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:

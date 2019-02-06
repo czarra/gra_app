@@ -97,22 +97,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
+                android:layout_marginBottom="20dp"
                 android:text="@string/textRegister"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="8pt" />
 
+            <TextView
+                android:id="@+id/usernameRegisterError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:textSize="6pt" />
             <EditText
                 android:id="@+id/usernameRegister"
                 style="@style/EditTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
                 android:hint="@string/username"
                 android:textColor="@color/warmGrey"
                 android:textSize="7pt" />
 
+            <TextView
+                android:id="@+id/emailRegisterError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:textSize="6pt" />
             <EditText
                 android:id="@+id/emailRegister"
                 style="@style/EditTextDefault"
@@ -125,6 +139,13 @@
                 android:textColor="@color/warmGrey"
                 android:textSize="7pt" />
 
+            <TextView
+                android:id="@+id/passwordRegisterError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:textSize="6pt" />
             <EditText
                 android:id="@+id/passwordRegister"
                 style="@style/EditTextDefault"
