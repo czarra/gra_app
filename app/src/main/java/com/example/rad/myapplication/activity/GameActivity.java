@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,17 +30,17 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 public class GameActivity extends AppCompatActivity  {
 
     private SharedPreferences sharedPreferences;
     private Button goToTaskButton;
-    private TextView textName, textDescription, textTasksGame;
+    private TextView textName, textDescription, textTasksGame,textEndGame;
     private ProgressBar progressBar;
     private String code;
-  //  private Integer id;
+    private ImageView imageGame;
+    protected Context context;
     private static final Logger LOG = LoggerFactory.getLogger(LoginUserTask.class);
 
     @Override
@@ -52,9 +53,11 @@ public class GameActivity extends AppCompatActivity  {
         textName = (TextView) findViewById(R.id.textName);
         textDescription = (TextView) findViewById(R.id.textDescription);
         textTasksGame = (TextView) findViewById(R.id.textTasksGame);
+        textEndGame = (TextView) findViewById(R.id.textEndGame);
 
-        progressBar= (ProgressBar) findViewById(R.id.progressBar);
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        imageGame = (ImageView) findViewById(R.id.imageGame);
+        context = this;
         Intent intent = getIntent();
         code =  intent.getStringExtra("code");
 
@@ -67,6 +70,16 @@ public class GameActivity extends AppCompatActivity  {
 
             @Override
             protected void onPostExecute(Game game) {
+
+                if(!game.getImageUrl().isEmpty()){
+                    LOG.error(game.getImageUrl());
+                    imageGame.setVisibility(View.VISIBLE);
+                    Picasso.with(context).load(game.getImageUrl())
+                            .resize(900,900)
+                            .centerCrop()
+                            .into(imageGame);
+
+                }
                 textName.setText(game.getName());
                 textDescription.setText(game.getDescription());
                 textName.setVisibility(View.VISIBLE);
@@ -77,8 +90,8 @@ public class GameActivity extends AppCompatActivity  {
                     goToTaskButton.setVisibility(View.VISIBLE);
                     textTasksGame.setVisibility(View.VISIBLE);
                 }else{
-                    textTasksGame.setText("Gra ukończona");
-                    textTasksGame.setVisibility(View.VISIBLE);
+                    textEndGame.setText("Gra ukończona w : "+game.getTime());
+                    textEndGame.setVisibility(View.VISIBLE);
                 }
 
                 progressBar.setVisibility(View.GONE);

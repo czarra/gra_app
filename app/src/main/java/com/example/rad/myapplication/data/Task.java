@@ -18,16 +18,19 @@ public class Task {
 
     private Boolean status = null;
 
+    private String imageUrl = null;
+
     public Task() {
         this.taskId = 0;
         this.name="";
         this.description="";
     }
 
-    private Task(Integer taskId, String name, String description ) {
+    private Task(Integer taskId, String name, String description, String imageUrl ) {
         this.taskId = taskId;
         this.name = name;
         this.description = description;
+        this.imageUrl = imageUrl;
     }
 
 
@@ -35,7 +38,8 @@ public class Task {
         try {
             return new Task(jsonObject.getInt("task_id"),
                     jsonObject.getString("name"),
-                    jsonObject.getString("description"));
+                    jsonObject.getString("description"),
+                    jsonObject.getString("img_url"));
 
         } catch (JSONException exp) {
             Log.e("Task class", exp.getMessage());
@@ -74,5 +78,9 @@ public class Task {
 
     public void setEnd(boolean end){
         this.end=end;
+    }
+
+    public String getImageUrl(){
+        return imageUrl;
     }
 }
