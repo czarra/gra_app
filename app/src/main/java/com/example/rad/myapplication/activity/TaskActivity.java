@@ -49,8 +49,6 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
     private Task currentTask;
     protected LocationManager locationManager;
     protected Location location;
-    private  Boolean isPicture = false;
-    //protected LocationListener locationListener;
     protected Context context;
     private ImageView imageTask;
     private Double longitude=0.0,latitude=0.0;
@@ -95,9 +93,6 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                             .resize(900,900)
                             .centerCrop()
                             .into(imageTask);
-                    isPicture = true;
-                } else {
-                    isPicture = false;
                 }
 
                 currentTask = task;
@@ -129,17 +124,18 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                         protected void onPreExecute() {
                             progressBar.setVisibility(View.VISIBLE);
                             checkButton.setVisibility(View.INVISIBLE);
-                            imageTask.setVisibility(View.GONE);
+                           // imageTask.setVisibility(View.GONE);
                         }
 
                         @Override
                         protected void onPostExecute(Task task) {
                             if (task.getStatus()) {// end task
-
+                                imageTask.setVisibility(View.GONE);
                                 if (task.getEnd()) {//end game
                                     textName.setText("Gratulacje! Koniec gry!");
                                     textDescription.setVisibility(View.GONE);
                                     checkButton.setVisibility(View.INVISIBLE);
+
                                 } else {
                                     if(!task.getImageUrl().isEmpty()){
                                         imageTask.setVisibility(View.VISIBLE);
@@ -147,9 +143,6 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                                                 .resize(900,900)
                                                 .centerCrop()
                                                 .into(imageTask);
-                                        isPicture = true;
-                                    } else {
-                                        isPicture = false;
                                     }
                                     currentTask = task;
                                     textName.setText(task.getName());
@@ -161,9 +154,6 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                                             "To teraz kolejne zadanie!", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                if(isPicture){
-                                    imageTask.setVisibility(View.VISIBLE);
-                                }
                                 checkButton.setVisibility(View.VISIBLE);
                                 Toast.makeText(getApplicationContext(),
                                         "Niestety to nie tu:(.", Toast.LENGTH_SHORT).show();
