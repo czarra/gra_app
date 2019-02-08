@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,8 +30,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 public class GameActivity extends AppCompatActivity  {
 
@@ -39,7 +39,8 @@ public class GameActivity extends AppCompatActivity  {
     private TextView textName, textDescription, textTasksGame;
     private ProgressBar progressBar;
     private String code;
-  //  private Integer id;
+    private ImageView imageGame;
+    protected Context context;
     private static final Logger LOG = LoggerFactory.getLogger(LoginUserTask.class);
 
     @Override
@@ -53,8 +54,9 @@ public class GameActivity extends AppCompatActivity  {
         textDescription = (TextView) findViewById(R.id.textDescription);
         textTasksGame = (TextView) findViewById(R.id.textTasksGame);
 
-        progressBar= (ProgressBar) findViewById(R.id.progressBar);
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        imageGame = (ImageView) findViewById(R.id.imageGame);
+        context = this;
         Intent intent = getIntent();
         code =  intent.getStringExtra("code");
 
@@ -67,6 +69,16 @@ public class GameActivity extends AppCompatActivity  {
 
             @Override
             protected void onPostExecute(Game game) {
+
+                if(!game.getImageUrl().isEmpty()){
+                    LOG.error(game.getImageUrl());
+                    imageGame.setVisibility(View.VISIBLE);
+                    Picasso.with(context).load(game.getImageUrl())
+                            .resize(900,900)
+                            .centerCrop()
+                            .into(imageGame);
+
+                }
                 textName.setText(game.getName());
                 textDescription.setText(game.getDescription());
                 textName.setVisibility(View.VISIBLE);

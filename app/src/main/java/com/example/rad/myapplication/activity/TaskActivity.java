@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.squareup.picasso.Picasso;
+
 import static java.security.AccessController.getContext;
 
 public class TaskActivity extends AppCompatActivity implements LocationListener  {
@@ -48,6 +51,7 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
     protected Location location;
     //protected LocationListener locationListener;
     protected Context context;
+    private ImageView imageTask;
     private Double longitude=0.0,latitude=0.0;
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginUserTask.class);
@@ -64,6 +68,7 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
         textDescription = (TextView) findViewById(R.id.textDescription);
 
         progressBar= (ProgressBar) findViewById(R.id.progressBar);
+        imageTask = (ImageView) findViewById(R.id.imageTask);
 
         Intent intent = getIntent();
         code =  intent.getStringExtra("code");
@@ -82,6 +87,16 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
 
             @Override
             protected void onPostExecute(Task task) {
+                if(!task.getImageUrl().isEmpty()){
+                    LOG.error(task.getImageUrl());
+                    imageTask.setVisibility(View.VISIBLE);
+                    Picasso.with(context).load(task.getImageUrl())
+                            .resize(900,900)
+                            .centerCrop()
+                            .into(imageTask);
+
+                }
+
                 currentTask = task;
                 textName.setText(task.getName());
                 textDescription.setText(task.getDescription());
@@ -111,6 +126,7 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                         protected void onPreExecute() {
                             progressBar.setVisibility(View.VISIBLE);
                             checkButton.setVisibility(View.INVISIBLE);
+                            imageTask.setVisibility(View.GONE);
                         }
 
                         @Override
@@ -122,6 +138,13 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                                     textDescription.setVisibility(View.GONE);
                                     checkButton.setVisibility(View.INVISIBLE);
                                 } else {
+                                    if(!task.getImageUrl().isEmpty()){
+                                        imageTask.setVisibility(View.VISIBLE);
+                                        Picasso.with(context).load(task.getImageUrl())
+                                                .resize(900,900)
+                                                .centerCrop()
+                                                .into(imageTask);
+                                    }
                                     currentTask = task;
                                     textName.setText(task.getName());
                                     textDescription.setText(task.getDescription());
@@ -160,7 +183,7 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
 
 
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 5, this);
             // milliseconds,meters
             return true;
         }

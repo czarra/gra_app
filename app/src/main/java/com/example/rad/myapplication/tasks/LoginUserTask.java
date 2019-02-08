@@ -31,7 +31,7 @@ public class LoginUserTask extends AsyncTask<String, String, Boolean> {
             LOG.error(Constants.Login_URL);
             //LOG.error(credentials.getPassword());
             String result = client.postURL(Constants.Login_URL, String.class, new Gson().toJson(credentials));
-            LOG.error(result);
+           // LOG.error(result);
             JSONObject jsonObject = new JSONObject(result);
             //LOG.error( jsonObject.toString());
             if (jsonObject.has("apiKey") && !jsonObject.getString("apiKey").isEmpty()) {
