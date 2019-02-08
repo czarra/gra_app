@@ -49,6 +49,7 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
     private Task currentTask;
     protected LocationManager locationManager;
     protected Location location;
+    private  Boolean isPicture = false;
     //protected LocationListener locationListener;
     protected Context context;
     private ImageView imageTask;
@@ -94,7 +95,9 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                             .resize(900,900)
                             .centerCrop()
                             .into(imageTask);
-
+                    isPicture = true;
+                } else {
+                    isPicture = false;
                 }
 
                 currentTask = task;
@@ -144,6 +147,9 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                                                 .resize(900,900)
                                                 .centerCrop()
                                                 .into(imageTask);
+                                        isPicture = true;
+                                    } else {
+                                        isPicture = false;
                                     }
                                     currentTask = task;
                                     textName.setText(task.getName());
@@ -155,6 +161,9 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                                             "To teraz kolejne zadanie!", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
+                                if(isPicture){
+                                    imageTask.setVisibility(View.VISIBLE);
+                                }
                                 checkButton.setVisibility(View.VISIBLE);
                                 Toast.makeText(getApplicationContext(),
                                         "Niestety to nie tu:(.", Toast.LENGTH_SHORT).show();
