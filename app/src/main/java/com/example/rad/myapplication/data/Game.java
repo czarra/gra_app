@@ -24,6 +24,8 @@ public class Game {
 
     private String imageUrl  = null;
 
+    private String time = null;
+
 
 
     public Game(String code) {
@@ -57,7 +59,7 @@ public class Game {
 
     private Game(Integer gameId, String code, String name,
                     String description, boolean isCurrentTask, Integer allTask, Integer userTask,
-                    String imageUrl) {
+                    String imageUrl, String time) {
         this.code = code;
         this.gameId = gameId;
         this.name = name;
@@ -66,6 +68,7 @@ public class Game {
         this.allTask = allTask;
         this.userTask = userTask;
         this.imageUrl = imageUrl;
+        this.time = time;
     }
 
     public static Game fromJsonObject(JSONObject jsonObject, Boolean bigger) {
@@ -85,7 +88,8 @@ public class Game {
                         locIsCurrentTask,
                         jsonObject.getInt("allTask"),
                         jsonObject.getInt("userTask"),
-                        jsonObject.getString("img_url"));
+                        jsonObject.getString("img_url"),
+                        jsonObject.getString("time"));
             }
         } catch (JSONException exp) {
             Log.e("Game class", exp.getMessage());
@@ -131,5 +135,9 @@ public class Game {
 
     public String getImageUrl(){
         return imageUrl;
+    }
+
+    public String getTime(){
+        return time;
     }
 }

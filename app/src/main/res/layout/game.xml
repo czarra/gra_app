@@ -76,6 +76,17 @@
                 android:visibility="gone"
                 android:textSize="6pt" />
 
+            <TextView
+                android:id="@+id/textEndGame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/saveOnGameWelcome"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                android:textSize="9pt" />
+
             <Button
                 android:id="@+id/goToTaskButton"
                 android:layout_width="fill_parent"

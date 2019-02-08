@@ -36,7 +36,7 @@ public class GameActivity extends AppCompatActivity  {
 
     private SharedPreferences sharedPreferences;
     private Button goToTaskButton;
-    private TextView textName, textDescription, textTasksGame;
+    private TextView textName, textDescription, textTasksGame,textEndGame;
     private ProgressBar progressBar;
     private String code;
     private ImageView imageGame;
@@ -53,6 +53,7 @@ public class GameActivity extends AppCompatActivity  {
         textName = (TextView) findViewById(R.id.textName);
         textDescription = (TextView) findViewById(R.id.textDescription);
         textTasksGame = (TextView) findViewById(R.id.textTasksGame);
+        textEndGame = (TextView) findViewById(R.id.textEndGame);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         imageGame = (ImageView) findViewById(R.id.imageGame);
@@ -89,8 +90,8 @@ public class GameActivity extends AppCompatActivity  {
                     goToTaskButton.setVisibility(View.VISIBLE);
                     textTasksGame.setVisibility(View.VISIBLE);
                 }else{
-                    textTasksGame.setText("Gra ukończona");
-                    textTasksGame.setVisibility(View.VISIBLE);
+                    textEndGame.setText("Gra ukończona w : "+game.getTime());
+                    textEndGame.setVisibility(View.VISIBLE);
                 }
 
                 progressBar.setVisibility(View.GONE);
