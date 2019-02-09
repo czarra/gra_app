@@ -22,7 +22,7 @@ public class SaveGameTask extends AsyncTask<String, String, Boolean> {
 
     private SaveGame data;
     private final ApiClient client = ApiClient.getInstance();
-    private String message;;
+    private String message="";
     private Integer id=null;
     private String code=null;
 

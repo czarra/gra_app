@@ -22,9 +22,9 @@ public class Game {
 
     private Integer userTask;
 
-    private String imageUrl  = null;
+    private String imageUrl  = "";
 
-    private String time = null;
+    private String time = "";
 
 
 

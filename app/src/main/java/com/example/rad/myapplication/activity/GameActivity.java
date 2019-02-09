@@ -75,23 +75,28 @@ public class GameActivity extends AppCompatActivity  {
                     LOG.error(game.getImageUrl());
                     imageGame.setVisibility(View.VISIBLE);
                     Picasso.with(context).load(game.getImageUrl())
-                            .resize(900,900)
+                            .resize(800,800)
                             .centerCrop()
                             .into(imageGame);
 
                 }
-                textName.setText(game.getName());
-                textDescription.setText(game.getDescription());
-                textName.setVisibility(View.VISIBLE);
-                textDescription.setVisibility(View.VISIBLE);
-                //show only if is more task
-                if(game.getIsCurrentTask()) {
-                    textTasksGame.setText("Zadanie "+game.getUserTask()+" z "+game.getAllTask());
-                    goToTaskButton.setVisibility(View.VISIBLE);
-                    textTasksGame.setVisibility(View.VISIBLE);
-                }else{
-                    textEndGame.setText("Gra ukończona w : "+game.getTime());
-                    textEndGame.setVisibility(View.VISIBLE);
+                if(game.getName() != null && game.getDescription() != null) {
+                    textName.setText(game.getName());
+                    textDescription.setText(game.getDescription());
+                    textName.setVisibility(View.VISIBLE);
+                    textDescription.setVisibility(View.VISIBLE);
+                    //show only if is more task
+                    if (game.getIsCurrentTask()) {
+                        textTasksGame.setText("Zadanie " + game.getUserTask() + " z " + game.getAllTask());
+                        goToTaskButton.setVisibility(View.VISIBLE);
+                        textTasksGame.setVisibility(View.VISIBLE);
+                    } else {
+                        textEndGame.setText("Gra ukończona w : " + game.getTime());
+                        textEndGame.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    textName.setText("Błąd: Brak danych.");
+                    textName.setVisibility(View.VISIBLE);
                 }
 
                 progressBar.setVisibility(View.GONE);

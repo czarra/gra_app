@@ -18,7 +18,7 @@ public class Task {
 
     private Boolean status = null;
 
-    private String imageUrl = null;
+    private String imageUrl = "";
 
     public Task() {
         this.taskId = 0;

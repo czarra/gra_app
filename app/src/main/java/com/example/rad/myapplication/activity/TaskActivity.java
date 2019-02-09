@@ -90,17 +90,23 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                     LOG.error(task.getImageUrl());
                     imageTask.setVisibility(View.VISIBLE);
                     Picasso.with(context).load(task.getImageUrl())
-                            .resize(900,900)
+                            .resize(800,800)
                             .centerCrop()
                             .into(imageTask);
                 }
 
-                currentTask = task;
-                textName.setText(task.getName());
-                textDescription.setText(task.getDescription());
-                textName.setVisibility(View.VISIBLE);
-                textDescription.setVisibility(View.VISIBLE);
-                checkButton.setVisibility(View.VISIBLE);
+                if(!task.getName().isEmpty() && !task.getDescription().isEmpty()) {
+                    currentTask = task;
+                    textName.setText(task.getName());
+                    textDescription.setText(task.getDescription());
+                    textName.setVisibility(View.VISIBLE);
+                    textDescription.setVisibility(View.VISIBLE);
+                    checkButton.setVisibility(View.VISIBLE);
+
+                } else {
+                    textName.setText("Błąd: Brak danych.");
+                    textName.setVisibility(View.VISIBLE);
+                }
                 progressBar.setVisibility(View.GONE);
             }
         };
@@ -129,7 +135,7 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
 
                         @Override
                         protected void onPostExecute(Task task) {
-                            if (task.getStatus()) {// end task
+                            if (task.getStatus() != null && task.getStatus()) {// end task
                                 imageTask.setVisibility(View.GONE);
                                 if (task.getEnd()) {//end game
                                     textName.setText("Gratulacje! Koniec gry!");
@@ -137,10 +143,10 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                                     checkButton.setVisibility(View.INVISIBLE);
 
                                 } else {
-                                    if(!task.getImageUrl().isEmpty()){
+                                    if (!task.getImageUrl().isEmpty()) {
                                         imageTask.setVisibility(View.VISIBLE);
                                         Picasso.with(context).load(task.getImageUrl())
-                                                .resize(900,900)
+                                                .resize(800, 800)
                                                 .centerCrop()
                                                 .into(imageTask);
                                     }
@@ -153,7 +159,11 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
                                     Toast.makeText(getApplicationContext(),
                                             "To teraz kolejne zadanie!", Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
+                            } else if(task.getStatus() == null){
+                                checkButton.setVisibility(View.VISIBLE);
+                                Toast.makeText(getApplicationContext(),
+                                        "Błąd: Brak danych", Toast.LENGTH_SHORT).show();
+                            }else {
                                 checkButton.setVisibility(View.VISIBLE);
                                 Toast.makeText(getApplicationContext(),
                                         "Niestety to nie tu:(.", Toast.LENGTH_SHORT).show();

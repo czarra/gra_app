@@ -69,9 +69,12 @@ public class ChoiceSaveActivity extends AppCompatActivity implements GameFragmen
                             if (success) {
                                 Game lockGame = new Game(super.getGameCode());
                                 starGameActivity(lockGame);
-                            } else {
+                            } else if( !super.getMessage().isEmpty()){
                                 Toast.makeText(getApplicationContext(),
                                         super.getMessage(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        "Błąd. Nie udało się zapisać!", Toast.LENGTH_SHORT).show();
                             }
                             progressBar.setVisibility(View.GONE);
                             saveToGameButton.setEnabled(true);
