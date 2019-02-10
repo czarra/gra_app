@@ -46,6 +46,7 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
     private TextView textName, textDescription,textGPS;
     private ProgressBar progressBar;
     private String code;
+    private Game myGame;
     private Task currentTask;
     protected LocationManager locationManager;
     protected Location location;
@@ -71,6 +72,7 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
 
         Intent intent = getIntent();
         code =  intent.getStringExtra("code");
+        myGame = new Game(code);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         context = this;
         checkPermission();
@@ -329,9 +331,17 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
         }
     }
 
+    private void starGameActivity(Game game) {
+        Intent mIntent = new Intent(this, GameActivity.class);
+        mIntent.putExtra("code", game.getCode());
+        startActivity(mIntent);
+        finish();
+    }
+
     @Override
     public void onBackPressed() {
-        startMainActivity();
+        starGameActivity(myGame);
+       // startMainActivity();
         finish();
     }
     

@@ -160,7 +160,7 @@ public class GameActivity extends AppCompatActivity  {
         Intent mIntent = new Intent(GameActivity.this, TaskActivity.class);
         mIntent.putExtra("code", code);
         startActivity(mIntent);
-       // finish();
+        finish();
     }
 
     class RetrieveGame extends AsyncTask<String, String, Game> {
