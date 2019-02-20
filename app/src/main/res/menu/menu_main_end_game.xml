@@ -1,11 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.rad.myapplication.activity.ChoiceSaveActivity">
+    tools:context="com.example.rad.myapplication.activity.EndGameActivity">
 
     <item
-        android:id="@+id/endGame"
-        android:title="@string/endGame" />
+        android:id="@+id/gamesAll"
+        android:title="@string/activeGames" />
     <item
         android:id="@+id/logout"
         android:title="@string/logoutText" />

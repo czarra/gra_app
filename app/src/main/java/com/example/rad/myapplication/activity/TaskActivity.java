@@ -234,8 +234,19 @@ public class TaskActivity extends AppCompatActivity implements LocationListener 
 
             return true;
         }
+        if (id == R.id.endGame) {
+            startEndGamesActivity();
+
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startEndGamesActivity() {
+        Intent mIntent = new Intent(TaskActivity.this, EndGameActivity.class);
+        startActivity(mIntent);
+        finish();
     }
 
     private void startMainActivity() {

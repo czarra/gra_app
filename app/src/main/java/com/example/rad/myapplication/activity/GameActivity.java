@@ -147,7 +147,19 @@ public class GameActivity extends AppCompatActivity  {
             return true;
         }
 
+        if (id == R.id.endGame) {
+            startEndGamesActivity();
+
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startEndGamesActivity() {
+        Intent mIntent = new Intent(GameActivity.this, EndGameActivity.class);
+        startActivity(mIntent);
+        finish();
     }
 
     private void startMainActivity() {

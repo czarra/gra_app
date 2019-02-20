@@ -20,17 +20,14 @@ import com.example.rad.myapplication.api.ApiClient;
 import com.example.rad.myapplication.constants.Constants;
 import com.example.rad.myapplication.data.Game;
 import com.example.rad.myapplication.data.SaveGame;
-import com.example.rad.myapplication.fragments.GameFragment;
+import com.example.rad.myapplication.fragments.EndGameFragment;
 import com.example.rad.myapplication.tasks.LoginUserTask;
 import com.example.rad.myapplication.tasks.SaveGameTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
-
-public class ChoiceSaveActivity extends AppCompatActivity implements GameFragment.OnFragmentInteractionListener {
+public class EndGameActivity extends AppCompatActivity implements EndGameFragment.OnFragmentInteractionListener {
 
     private SharedPreferences sharedPreferences;
     private Button saveToGameButton;
@@ -41,49 +38,13 @@ public class ChoiceSaveActivity extends AppCompatActivity implements GameFragmen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.choise_save);
+        setContentView(R.layout.end_game);
         sharedPreferences =
                 getApplicationContext().getSharedPreferences(Constants.APP_NAME, Context.MODE_PRIVATE);
-        saveToGameButton = (Button) findViewById(R.id.saveToGameButton);
-        gameCode = (EditText) findViewById(R.id.gameCode);
         progressBar= (ProgressBar) findViewById(R.id.progressBar);
 
-        loadFragment(GameFragment.newInstance());
+        loadFragment(EndGameFragment.newInstance());
 
-        saveToGameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(gameCode.getText().toString().equals("")){
-
-                    Toast.makeText(getApplicationContext(),
-                            "Pola nie mogę być puste!", Toast.LENGTH_SHORT).show();
-
-                }else {
-                    saveToGameButton.setEnabled(false);
-                    progressBar.setVisibility(View.VISIBLE);
-                    SaveGame game = new SaveGame(gameCode.getText().toString());
-                    SaveGameTask gameTask = new SaveGameTask(game) {
-                        @Override
-                        protected void onPostExecute(Boolean success) {
-                            super.onPostExecute(success);
-                            if (success) {
-                                Game lockGame = new Game(super.getGameCode());
-                                starGameActivity(lockGame);
-                            } else if( !super.getMessage().isEmpty()){
-                                Toast.makeText(getApplicationContext(),
-                                        super.getMessage(), Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(),
-                                        "Błąd. Nie udało się zapisać!", Toast.LENGTH_SHORT).show();
-                            }
-                            progressBar.setVisibility(View.GONE);
-                            saveToGameButton.setEnabled(true);
-                        }
-                    };
-                    gameTask.execute();
-                }
-            }
-        });
 
     }
 
@@ -98,7 +59,7 @@ public class ChoiceSaveActivity extends AppCompatActivity implements GameFragmen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main_end_game, menu);
         return true;
     }
 
@@ -115,9 +76,8 @@ public class ChoiceSaveActivity extends AppCompatActivity implements GameFragmen
 
             return true;
         }
-
-        if (id == R.id.endGame) {
-            startEndGamesActivity();
+        if (id == R.id.gamesAll) {
+            startMainActivity();
 
             return true;
         }
@@ -125,8 +85,8 @@ public class ChoiceSaveActivity extends AppCompatActivity implements GameFragmen
         return super.onOptionsItemSelected(item);
     }
 
-    private void startEndGamesActivity() {
-        Intent mIntent = new Intent(ChoiceSaveActivity.this, EndGameActivity.class);
+    private void startMainActivity() {
+        Intent mIntent = new Intent(EndGameActivity.this, ChoiceSaveActivity.class);
         startActivity(mIntent);
         finish();
     }
@@ -147,6 +107,13 @@ public class ChoiceSaveActivity extends AppCompatActivity implements GameFragmen
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content_main, fragment);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        startMainActivity();
+        finish();
     }
 
 }

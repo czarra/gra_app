@@ -7,6 +7,9 @@
         android:id="@+id/gamesAll"
         android:title="@string/activeGames" />
     <item
+        android:id="@+id/endGame"
+        android:title="@string/endGame" />
+    <item
         android:id="@+id/logout"
         android:title="@string/logoutText" />
 
