@@ -10,11 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.rad.myapplication.R;
 import com.example.rad.myapplication.api.ApiClient;
-import com.example.rad.myapplication.constants.Constants;
 import com.example.rad.myapplication.api.ApiException;
+import com.example.rad.myapplication.constants.Constants;
 import com.example.rad.myapplication.data.Game;
 
 import org.json.JSONArray;
@@ -26,15 +27,15 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameFragment extends Fragment {
+public class EndGameFragment extends Fragment {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GameFragment.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EndGameFragment.class);
 
     private OnFragmentInteractionListener listener;
-    private MyGameRecyclerViewAdapter adapter;
+    private MyEndGameRecyclerViewAdapter adapter;
 
-    public static GameFragment newInstance() {
-        GameFragment fragment = new GameFragment();
+    public static EndGameFragment newInstance() {
+        EndGameFragment fragment = new EndGameFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -44,27 +45,32 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_games, container, false);
+        View view = inflater.inflate(R.layout.fragment_end_games, container, false);
 
         // Set the adapter
         Context context = view.getContext();
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
         final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar1);
+        final TextView textNotEndGame = (TextView) view.findViewById(R.id.textNotEndGame);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setSmoothScrollbarEnabled(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        adapter = new MyGameRecyclerViewAdapter(new ArrayList<Game>(), listener);
+        adapter = new MyEndGameRecyclerViewAdapter(new ArrayList<Game>(), listener);
         RetrieveGameTask retrieveGameTask = new RetrieveGameTask() {
             @Override
             protected void onPreExecute() {
                 recyclerView.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
+                textNotEndGame.setVisibility(View.GONE);
             }
 
             @Override
             protected void onPostExecute(List<Game> games) {
                 adapter.games.clear();
+                if( games.size() == 0){
+                    textNotEndGame.setVisibility(View.VISIBLE);
+                }
                 for (int i = 0; i < games.size(); i++) {
                     adapter.games.add(games.get(i));
                 }
@@ -108,7 +114,7 @@ public class GameFragment extends Fragment {
             List<Game> list = new ArrayList<>();
 
             try {
-                String jsonResponse = client.getURLWithAuth(Constants.ALL_USER_NOT_END_GAME_URL, String.class);
+                String jsonResponse = client.getURLWithAuth(Constants.ALL_USER_END_GAME_URL, String.class);
                 if(jsonResponse.length()>5) {
                     JSONObject jsonObject = new JSONObject(jsonResponse);
                     LOG.error(jsonObject.toString());
